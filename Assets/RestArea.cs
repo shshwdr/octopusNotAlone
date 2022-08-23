@@ -11,7 +11,7 @@ public class RestArea : AreaBase
     {
         foreach(var human in GetComponentsInChildren<Human>())
         {
-            humans.Add(human);
+            addHuman(human);
         }
     }
 }

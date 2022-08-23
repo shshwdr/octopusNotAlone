@@ -18,6 +18,12 @@ public class AreaBase:MonoBehaviour
     }
     // Update is called once per frame
 
+    public void addHuman(Human human)
+    {
+        humans.Add(human);
+        RoomsAndHumanManager.Instance. addHuman(human);
+        human.startWorking(room.workType);
+    }
     public Human getMinionFromRoom()
     {
         var sorted = humans.OrderBy(human => human.energy);
@@ -26,6 +32,7 @@ public class AreaBase:MonoBehaviour
         {
 
             humans.Remove(selected);
+            RoomsAndHumanManager.Instance.removeHuman(selected);
         }
         return selected;
     }

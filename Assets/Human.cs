@@ -23,6 +23,14 @@ public class Human : MonoBehaviour
     }
     public void startWorking(string workType)
     {
+        //switch (workType)
+        //{
+        //    case "critical":
+        //        break;
+        //    case "rest":
+        //        break;
+
+        //}
 
     }
 }

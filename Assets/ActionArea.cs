@@ -37,7 +37,7 @@ public class ActionArea : AreaBase
 
     public  IEnumerator removeMinion()
     {
-        var restRoom = RoomsManager.Instance.restArea;
+        var restRoom = RoomsAndHumanManager.Instance.restArea;
         var selected = getMinionFromRoom();
         if (selected)
         {
@@ -45,14 +45,15 @@ public class ActionArea : AreaBase
             yield return StartCoroutine(room.catchHuman(selected.transform, catchTime));
             yield return StartCoroutine(restRoom.room.releaseHuman(selected.transform, restRoom.room.humanPositions[Random.Range(0, restRoom. room.humanPositions.Count)].position, catchTime));
             selected.transform.parent = restRoom.transform;
-            restRoom.humans.Add(selected);
+            restRoom.addHuman(selected);
         }
         yield return null;
     }
 
+
     public IEnumerator addMinion()
     {
-        var restRoom = RoomsManager.Instance.restArea;
+        var restRoom = RoomsAndHumanManager.Instance.restArea;
         var selected = restRoom.getMinionFromRoom();
         if (selected)
         {
@@ -61,7 +62,7 @@ public class ActionArea : AreaBase
             yield return StartCoroutine(restRoom.room.catchHuman(selected.transform, catchTime));
             yield return StartCoroutine(room.releaseHuman(selected.transform, room.humanPositions[Random.Range(0, room.humanPositions.Count)].position, catchTime));
             selected.transform.parent = transform;
-            humans.Add(selected);
+            addHuman(selected);
 
 
         }

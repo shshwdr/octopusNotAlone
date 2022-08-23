@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnArea : MonoBehaviour
+public class FoodArea : MonoBehaviour
 {
     public float generateTime = 1f;
     float timer;
@@ -16,16 +16,11 @@ public class SpawnArea : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (actionArea.humans.Count > 0)
+        timer += Time.deltaTime;
+        if (timer >= generateTime)
         {
-
-            timer += Time.deltaTime;
-            if (timer >= generateTime)
-            {
-                timer = 0;
-                RoomsAndHumanManager.Instance.addNewHuman();
-                //ResourceManager.Instance.changeAmount("happy", actionArea.humans.Count);
-            }
+            timer = 0;
+            ResourceManager.Instance.changeAmount("food", actionArea.humans.Count);
         }
     }
 }

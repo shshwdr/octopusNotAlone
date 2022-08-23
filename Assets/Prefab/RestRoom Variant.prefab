@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3835326014581280693, guid: 8ac6d622b3bac1c46a905f804171bd1f, type: 3}
       propertyPath: m_Name
-      value: RestRoom
+      value: RestRoom Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3835326014581280694, guid: 8ac6d622b3bac1c46a905f804171bd1f, type: 3}
       propertyPath: m_RootOrder

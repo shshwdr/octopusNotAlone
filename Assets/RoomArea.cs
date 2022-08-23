@@ -6,6 +6,7 @@ public class RoomArea : MonoBehaviour
 {
     public List<Tentacle> tentacles;
     public List<Transform> humanPositions;
+    public string workType;
     // Start is called before the first frame update
     void Start()
     {
