@@ -1,0 +1,55 @@
+
+zombie.png
+size: 796,589
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+arm
+  rotate: false
+  xy: 590, 16
+  size: 184, 247
+  orig: 187, 260
+  offset: 1, 1
+  index: -1
+hand
+  rotate: true
+  xy: 2, 8
+  size: 579, 255
+  orig: 582, 257
+  offset: 2, 1
+  index: -1
+head
+  rotate: true
+  xy: 259, 275
+  size: 312, 361
+  orig: 315, 364
+  offset: 2, 1
+  index: -1
+left leg
+  rotate: true
+  xy: 622, 265
+  size: 82, 150
+  orig: 84, 154
+  offset: 1, 3
+  index: -1
+pelvis
+  rotate: true
+  xy: 622, 349
+  size: 238, 172
+  orig: 250, 182
+  offset: 2, 6
+  index: -1
+ribs
+  rotate: true
+  xy: 259, 2
+  size: 271, 260
+  orig: 274, 262
+  offset: 2, 1
+  index: -1
+right leg
+  rotate: false
+  xy: 521, 147
+  size: 67, 126
+  orig: 131, 128
+  offset: 63, 1
+  index: -1
