@@ -24,9 +24,14 @@ public class AreaBase:MonoBehaviour
         RoomsAndHumanManager.Instance. addHuman(human);
         human.startWorking(room.workType);
     }
+
+    public virtual IOrderedEnumerable<Human> sort()
+    {
+        return humans.OrderBy(human => human.energy);
+    }
     public Human getMinionFromRoom()
     {
-        var sorted = humans.OrderBy(human => human.energy);
+        var sorted = sort();
         var selected = sorted.FirstOrDefault();
         if (selected)
         {
