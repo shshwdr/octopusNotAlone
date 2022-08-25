@@ -600,6 +600,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxEnergy: 20
   energyReduceTime: 1
+  energyReduceAmount: 0.3
+  energyIncreaseAmount: 1
   energy: 0
   hasPincer: 0
   hasTentacle: 0

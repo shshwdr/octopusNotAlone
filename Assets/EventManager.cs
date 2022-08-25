@@ -1,4 +1,5 @@
 using Sinbad;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,17 +10,17 @@ public class EventInfo
     public string text;
     public List<string> prerequisite;
     public string option1Text;
-    public string option1Effect;
+    public List<string> option1Effect;
     public string option1ResultText;
 
 
     public string option2Text;
-    public string option2Effect;
+    public List<string> option2Effect;
     public string option2ResultText;
 
 
     public string option3Text;
-    public string option3Effect;
+    public List<string> option3Effect;
     public string option3ResultText;
 }
 public class EventManager : Singleton<EventManager>
@@ -47,6 +48,10 @@ public class EventManager : Singleton<EventManager>
         eventInfos = CsvUtil.LoadObjects<EventInfo>("events");
         foreach(var info in eventInfos)
         {
+            if(info.name == "")
+            {
+                continue;
+            }
             if (info.prerequisite.Count == 0 || info.prerequisite[0].Length == 0)
             {
                 unlockedEventInfos.Add(info);
@@ -72,7 +77,7 @@ public class EventManager : Singleton<EventManager>
             if (eventCheckTimer == 0)
             {
                 //can have event now
-                if (Random.Range(0f, 1f) <= eventCheckPossibility)
+                if (UnityEngine.Random.Range(0f, 1f) <= eventCheckPossibility)
                 {
                     //succeed, start an event
                     pickEventAndStart();
@@ -95,11 +100,11 @@ public class EventManager : Singleton<EventManager>
     {
         if (unlockedEventInfos.Count > 0)
         {
-            var selectInfo = unlockedEventInfos[Random.Range(0, unlockedEventInfos.Count)];
+            var selectInfo = unlockedEventInfos[UnityEngine.Random.Range(0, unlockedEventInfos.Count)];
 
             //check
 
-            Debug.Log(selectInfo);
+            Debug.Log(selectInfo.name);
             visitedEventInfo.Add(selectInfo);
             visitedEventInfoName.Add(selectInfo.name);
             unlockedEventInfos.Remove(selectInfo);
@@ -180,21 +185,42 @@ public class EventManager : Singleton<EventManager>
     {
 
         List<EventButtonInfo> eventButtons = new List<EventButtonInfo>();
-        eventButtons.Add(new EventButtonInfo(selectInfo.option1Text, selectInfo.option1ResultText, null));
-        if (selectInfo.option2Effect.Length > 0)
+        eventButtons.Add(new EventButtonInfo(selectInfo.option1Text, selectInfo.option1ResultText, getAction(selectInfo.option1Effect)));
+        if (selectInfo.option2Text.Length > 0)
         {
-            eventButtons.Add(new EventButtonInfo(selectInfo.option2Text, selectInfo.option2ResultText, null));
+            eventButtons.Add(new EventButtonInfo(selectInfo.option2Text, selectInfo.option2ResultText, getAction(selectInfo.option2Effect)));
 
         }
 
-        if (selectInfo.option3Effect.Length > 0)
+        if (selectInfo.option3Text.Length > 0)
         {
-            eventButtons.Add(new EventButtonInfo(selectInfo.option3Text, selectInfo.option2ResultText, null));
+            eventButtons.Add(new EventButtonInfo(selectInfo.option3Text, selectInfo.option3ResultText, getAction(selectInfo.option3Effect)));
 
         }
 
         GameObject.FindObjectOfType<EventMenu>(true).Init(selectInfo.text, eventButtons);
 
         GameObject.FindObjectOfType<EventMenu>(true).showView();
+    }
+
+    Action getAction(List<string> effects)
+    {
+        return () => {
+            foreach (var eff in effects)
+            {
+                if (eff == "kill")
+                {
+
+                }
+                else if (eff.StartsWith("buff_"))
+                {
+                    BuffManager.Instance.activateBuff(eff);
+                }
+                else if (eff.StartsWith("add_"))
+                {
+                    BuffManager.Instance.activateBuff(eff);
+                }
+            }
+        };
     }
 }

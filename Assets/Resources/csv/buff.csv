@@ -1,0 +1,10 @@
+﻿name,explain,maxValue
+add_shortLeg,Human can mutate to have short leg,
+add_tentacleArm,Human can mutate to have tentacles,
+add_pincerArm,Human can mutate to have pincers,
+add_breathWithoutHelmet,Human can mutate to breath in space.,
+buff_worshipPincerEfficiency,Human worship pincer and less efficient.,
+buff_meteoFairSlow,Human afraid of meteo and work slow,
+buff_petRecoverFaster,Human loves pets and recover faster,
+buff_worshipTentacleEfficiency,Human worship tentacle and more efficient.,
+buff_tradeFear,Human afraid of being sold and work slow,

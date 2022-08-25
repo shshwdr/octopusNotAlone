@@ -29,7 +29,6 @@ public class MouseController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        return;
         if (!EventSystem.current.IsPointerOverGameObject())
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

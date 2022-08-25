@@ -9,6 +9,8 @@ public class Human : MonoBehaviour
 {
     public float maxEnergy = 20;
     public float energyReduceTime = 1;
+    public float energyReduceAmount = 0.5f;
+    public float energyIncreaseAmount = 1f;
     float energyTimer = 0;
     public float energy;
 
@@ -80,12 +82,12 @@ public class Human : MonoBehaviour
                 energyTimer = 0;
                 if (this.workType == "rest")
                 {
-                    energy++;
+                    energy+= energyIncreaseAmount;
                     energy = Mathf.Min(energy, maxEnergy);
                 }
                 else
                 {
-                    energy--;
+                    energy-= energyReduceAmount;
                     if (energy <= 0)
                     {
                         die();

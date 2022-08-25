@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ActionArea : AreaBase
 {
@@ -14,22 +15,25 @@ public class ActionArea : AreaBase
 
     void Update()
     {
-        if (Input.GetMouseButtonUp(0))
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero);
-            if (hit && hit.collider.gameObject == gameObject)
+            if (Input.GetMouseButtonUp(0))
             {
-                StartCoroutine(addMinion());
+                Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero);
+                if (hit && hit.collider.gameObject == gameObject)
+                {
+                    StartCoroutine(addMinion());
+                }
             }
-        }
-        else if (Input.GetMouseButtonUp(1))
-        {
-            Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero);
-            if (hit && hit.collider.gameObject == gameObject)
+            else if (Input.GetMouseButtonUp(1))
             {
-                StartCoroutine(removeMinion());
+                Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero);
+                if (hit && hit.collider.gameObject == gameObject)
+                {
+                    StartCoroutine(removeMinion());
+                }
             }
         }
     }
