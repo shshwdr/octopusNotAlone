@@ -37,8 +37,11 @@ public class Tentacle : MonoBehaviour
         yield return new WaitForSeconds(time);
         target.parent = end;
 
+
         moveTo(start.position, time);
         yield return new WaitForSeconds(time);
+
+
     }
     public void moveTo(Vector3 target, float time)
     {

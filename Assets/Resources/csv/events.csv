@@ -1,0 +1,12 @@
+﻿name,type,text,prerequisite,option1Text,option1Effect,option1ResultText,option2Text,option2Effect,option2ResultText,,option3Text,option3Effect,option3ResultText
+shortLeg,breed,"The human mutate while breeding and a new type of human is born. It has shorter legs. It can not work as hard as others, but it is kind of cute so will make me happier",,Keep it.,,I like this little guy. ,Kill it.,,Useless. Die,,,,
+moreHuman,outside,A spaceship flied pass and I caught it,,Make them join my planet.,,You get some more human. But they don't like the life here and somehow make all human less efficient. Weird.,Kill them.,,"Haha, their faces are funny when I put them in my mouth.",,,,
+shortLegDiscrimination,inside,"The short leg human are discrimated by other human. They think the short ones are not ""nature""",has_shortLeg,Watch the play.,,The ones with the shorter legs are not good at fighting. Some get killed during the battle.,"Kill the leader of the ""nature"" human",,,The battle stopped immediately. Another peaceful day on the planet.,,,
+tentacleArm,breed,"The human mutate while breeding and a new type of human is born. It has tentacle arm. It does not work as good as arms it used to have, but hey these tentacles make it looks more like my specy",,Keep it.,,I like this little guy. ,Kill it.,,"Like me or not, if it can not work I don't want it.",,,,
+pincerArm,breed,The human mutate while breeding and a new type of human is born. It has a pincer arm… Might be a good help as a cook but I think the shape is quite dangerous to my tentacles…,,Keep it.,,,Kill it.,,,,,,
+breathWithoutHelmet,breed,The human mutate while breeding and a new type of human is born. It can breath without helmet. ,,Keep it.,,,Kill it.,,,,,,
+pincerAndTentacleBattle,inside,the human with pincer and human with tentacle has a battle.,has_tentacleArm|has_pincerArm,Watch the play.,,,,,,,,,
+tentacleWorship,inside,human start to worship the ones with tentacle,has_tentacleArm,Ignore them,,,,,,,,,
+pincerWorship,inside,human start to worship the ones with pincer,has_pincerArm,Ignore them,,,,,,,,,
+meteoCrash,outside,There is a meteo crash,,Ignore it.,,,,,,,,,
+trade,outside,A spaceship passed and the one on the ship is interested to your human,,Refuse.,,,,,,,,,

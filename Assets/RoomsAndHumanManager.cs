@@ -1,3 +1,4 @@
+using Pool;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,10 +20,10 @@ public class RoomsAndHumanManager : Singleton<RoomsAndHumanManager>
 
     public void addNewHuman()
     {
-        var positions = restArea.GetComponent<RoomArea>().humanPositions;
-        var position = positions[Random.Range(0, positions.Count)];
-        var human = Instantiate(Resources.Load<GameObject>("human"), position.position, Quaternion.identity);
+        var position = restArea.GetComponent<RoomArea>() .capturePosition();
+        var human = Instantiate(Resources.Load<GameObject>("human"), position, Quaternion.identity);
         restArea.addHuman(human.GetComponent<Human>());
+        addHuman(human.GetComponent<Human>());
     }
 
     // Update is called once per frame
@@ -34,9 +35,11 @@ public class RoomsAndHumanManager : Singleton<RoomsAndHumanManager>
     public void addHuman(Human human)
     {
         humans.Add(human);
+        EventPool.Trigger("humanCountChange");
     }
     public void removeHuman(Human human)
     {
         humans.Remove(human);
+        EventPool.Trigger("humanCountChange");
     }
 }

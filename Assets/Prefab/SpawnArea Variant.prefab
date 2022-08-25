@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3835326014581280693, guid: 8ac6d622b3bac1c46a905f804171bd1f, type: 3}
       propertyPath: m_Name
-      value: SpawnArea
+      value: SpawnArea Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3835326014581280694, guid: 8ac6d622b3bac1c46a905f804171bd1f, type: 3}
       propertyPath: m_RootOrder
@@ -55,6 +55,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3835326015121983602, guid: 8ac6d622b3bac1c46a905f804171bd1f, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835326015121983602, guid: 8ac6d622b3bac1c46a905f804171bd1f, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1821501557
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ac6d622b3bac1c46a905f804171bd1f, type: 3}
 --- !u!1 &1058060069985891149 stripped
@@ -74,3 +82,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4307bae3d6f9056418167eeedd1a43f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  catchTime: 1
+  humans: []
+  room: {fileID: 0}

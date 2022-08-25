@@ -14,24 +14,24 @@ public class ActionArea : AreaBase
 
     void Update()
     {
-        if (Input.GetMouseButtonUp(0))
-        {
-            Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero);
-            if (hit &&hit.collider.gameObject == gameObject)
-            {
-                StartCoroutine(addMinion());
-            }
-        }
-        else if(Input.GetMouseButtonUp(1))
-        {
-            Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero);
-            if (hit && hit.collider.gameObject == gameObject)
-            {
-                StartCoroutine(removeMinion());
-            }
-        }
+        //if (Input.GetMouseButtonUp(0))
+        //{
+        //    Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //    RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero);
+        //    if (hit &&hit.collider.gameObject == gameObject)
+        //    {
+        //        StartCoroutine(addMinion());
+        //    }
+        //}
+        //else if(Input.GetMouseButtonUp(1))
+        //{
+        //    Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //    RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero);
+        //    if (hit && hit.collider.gameObject == gameObject)
+        //    {
+        //        StartCoroutine(removeMinion());
+        //    }
+        //}
     }
 
 
@@ -43,7 +43,8 @@ public class ActionArea : AreaBase
         {
             selected.stopWorking();
             yield return StartCoroutine(room.catchHuman(selected.transform, catchTime));
-            yield return StartCoroutine(restRoom.room.releaseHuman(selected.transform, restRoom.room.humanPositions[Random.Range(0, restRoom. room.humanPositions.Count)].position, catchTime));
+            var selectPosition = restRoom.room.capturePosition();
+            yield return StartCoroutine(restRoom.room.releaseHuman(selected.transform, selectPosition, catchTime));
             selected.transform.parent = restRoom.transform;
             restRoom.addHuman(selected);
         }
@@ -60,7 +61,10 @@ public class ActionArea : AreaBase
 
             selected.stopWorking();
             yield return StartCoroutine(restRoom.room.catchHuman(selected.transform, catchTime));
-            yield return StartCoroutine(room.releaseHuman(selected.transform, room.humanPositions[Random.Range(0, room.humanPositions.Count)].position, catchTime));
+
+            var selectPosition = room.capturePosition();
+
+            yield return StartCoroutine(room.releaseHuman(selected.transform, selectPosition, catchTime));
             selected.transform.parent = transform;
             addHuman(selected);
 

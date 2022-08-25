@@ -21,8 +21,14 @@ public class AreaBase:MonoBehaviour
     public void addHuman(Human human)
     {
         humans.Add(human);
-        RoomsAndHumanManager.Instance. addHuman(human);
+        //RoomsAndHumanManager.Instance. addHuman(human);
         human.startWorking(room.workType);
+    }
+
+    public void removeHuman(Human human)
+    {
+        humans.Remove(human);
+        //RoomsAndHumanManager.Instance.removeHuman(human);
     }
 
     public virtual IOrderedEnumerable<Human> sort()
@@ -35,9 +41,7 @@ public class AreaBase:MonoBehaviour
         var selected = sorted.FirstOrDefault();
         if (selected)
         {
-
-            humans.Remove(selected);
-            RoomsAndHumanManager.Instance.removeHuman(selected);
+            removeHuman(selected);
         }
         return selected;
     }

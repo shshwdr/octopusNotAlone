@@ -1,3 +1,5 @@
+using Spine;
+using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +12,15 @@ public class Human : MonoBehaviour
     float energyTimer = 0;
     public float energy;
 
+
+    bool hasPincer;
+    bool hasTentacle;
+    bool hasShortLegs;
+    bool noHelmet;
+
     public Image energyFillImage;
+
+    SkeletonAnimation skeletonAnimation;
 
     string workType = "rest";
     // Start is called before the first frame update
@@ -18,11 +28,49 @@ public class Human : MonoBehaviour
     {
         energy = maxEnergy;
         energyFillImage.fillAmount = energy / maxEnergy;
+        skeletonAnimation = GetComponentInChildren<SkeletonAnimation>();
+    }
+
+    void init()
+    {
+        var skeleton = skeletonAnimation.Skeleton;
+        var skeletonData = skeleton.Data;
+        var mixAndMatchSkin = new Skin("base_spacesuit");
+        mixAndMatchSkin.AddSkin(skeletonData.FindSkin("base_spacesuit"));
+
+        if (hasPincer)
+        {
+            mixAndMatchSkin.AddSkin(skeletonData.FindSkin("hand_left_pincer"));
+        }
+        if (hasTentacle)
+        {
+            mixAndMatchSkin.AddSkin(skeletonData.FindSkin("hand_right_tentacle"));
+        }
+        if (hasShortLegs)
+        {
+            mixAndMatchSkin.AddSkin(skeletonData.FindSkin("legs_dinosaur"));
+        }
+        if (noHelmet)
+        {
+            mixAndMatchSkin.AddSkin(skeletonData.FindSkin("head_nohelmet"));
+        }
+
+
+        skeleton.SetSkin(mixAndMatchSkin);
+        skeleton.SetSlotsToSetupPose();
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        //test
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            
+        }
+
+
         if (this.workType.Length != 0)
         {
 
@@ -51,6 +99,17 @@ public class Human : MonoBehaviour
 
     void die()
     {
+        var parentRoom = GetComponentInParent<AreaBase>();
+        if (parentRoom)
+        {
+            parentRoom.removeHuman(this);
+            RoomsAndHumanManager.Instance.removeHuman(this);
+        }
+        else
+        {
+            Debug.LogError("no room?");
+            RoomsAndHumanManager.Instance.removeHuman(this);
+        }
         Destroy(gameObject);
     }
 

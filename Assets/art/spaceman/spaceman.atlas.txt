@@ -1,0 +1,83 @@
+
+spaceman.png
+size: 174,81
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: false
+  xy: 56, 2
+  size: 36, 34
+  orig: 38, 36
+  offset: 1, 1
+  index: -1
+hand_left
+  rotate: true
+  xy: 94, 7
+  size: 19, 26
+  orig: 19, 26
+  offset: 0, 0
+  index: -1
+hand_left2
+  rotate: true
+  xy: 103, 28
+  size: 25, 42
+  orig: 26, 42
+  offset: 0, 0
+  index: -1
+hand_right
+  rotate: true
+  xy: 122, 7
+  size: 19, 21
+  orig: 23, 25
+  offset: 4, 4
+  index: -1
+hand_right2
+  rotate: false
+  xy: 2, 2
+  size: 42, 27
+  orig: 42, 27
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 2, 31
+  size: 52, 48
+  orig: 61, 50
+  offset: 6, 1
+  index: -1
+head2
+  rotate: false
+  xy: 56, 38
+  size: 45, 41
+  orig: 47, 43
+  offset: 1, 1
+  index: -1
+leg_left
+  rotate: true
+  xy: 147, 23
+  size: 14, 21
+  orig: 14, 21
+  offset: 0, 0
+  index: -1
+leg_left2
+  rotate: true
+  xy: 103, 55
+  size: 24, 45
+  orig: 24, 45
+  offset: 0, 0
+  index: -1
+leg_right
+  rotate: false
+  xy: 145, 2
+  size: 13, 19
+  orig: 13, 19
+  offset: 0, 0
+  index: -1
+leg_right2
+  rotate: false
+  xy: 150, 39
+  size: 22, 40
+  orig: 22, 40
+  offset: 0, 0
+  index: -1
