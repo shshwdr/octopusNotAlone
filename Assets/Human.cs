@@ -13,10 +13,10 @@ public class Human : MonoBehaviour
     public float energy;
 
 
-    bool hasPincer;
-    bool hasTentacle;
-    bool hasShortLegs;
-    bool noHelmet;
+    public bool hasPincer;
+    public bool hasTentacle;
+    public bool hasShortLegs;
+    public bool noHelmet;
 
     public Image energyFillImage;
 
@@ -24,14 +24,14 @@ public class Human : MonoBehaviour
 
     string workType = "rest";
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         energy = maxEnergy;
         energyFillImage.fillAmount = energy / maxEnergy;
         skeletonAnimation = GetComponentInChildren<SkeletonAnimation>();
     }
 
-    void init()
+    public void init()
     {
         var skeleton = skeletonAnimation.Skeleton;
         var skeletonData = skeleton.Data;

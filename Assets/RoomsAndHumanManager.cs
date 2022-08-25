@@ -22,6 +22,7 @@ public class RoomsAndHumanManager : Singleton<RoomsAndHumanManager>
     {
         var position = restArea.GetComponent<RoomArea>() .capturePosition();
         var human = Instantiate(Resources.Load<GameObject>("human"), position, Quaternion.identity);
+        BreedManager.Instance.breed(human.GetComponent<Human>(), human.GetComponent<Human>(), human.GetComponent<Human>());
         restArea.addHuman(human.GetComponent<Human>());
         addHuman(human.GetComponent<Human>());
     }

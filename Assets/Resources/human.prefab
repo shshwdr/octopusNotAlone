@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1433148977825188578}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.3603227}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 8779668878147881552}
   m_RootOrder: 2
@@ -127,7 +127,7 @@ Transform:
   m_GameObject: {fileID: 2352061119372235313}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.02, y: -0.08, z: 0.3603227}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8779668878147881552}
   m_RootOrder: 3
@@ -330,7 +330,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: -0.23}
+  m_AnchoredPosition: {x: 0, y: -0.09}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1051923597704861450
@@ -601,4 +601,8 @@ MonoBehaviour:
   maxEnergy: 20
   energyReduceTime: 1
   energy: 0
+  hasPincer: 0
+  hasTentacle: 0
+  hasShortLegs: 0
+  noHelmet: 0
   energyFillImage: {fileID: 7021339496552151761}
