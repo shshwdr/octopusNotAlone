@@ -1,21 +1,46 @@
 using Pool;
+using Sinbad;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+public class RoomInfo {
+    public string type;
+    public List<float> upgradeCost;
+    public List<float> upgradeHumanCount;
+    public List<float> otherValue;
+
+}
+
 
 public class RoomsAndHumanManager : Singleton<RoomsAndHumanManager>
 {
     public RestArea restArea;
     public List<Human> humans;
+
+    public RoomArea[] allRooms;
+
+
+    public List<RoomInfo> roomInfos = new List<RoomInfo>();
+    public Dictionary<string, RoomInfo> roomInfoDict = new Dictionary<string, RoomInfo>();
+
     // Start is called before the first frame update
     void Start()
     {
+        allRooms = GameObject.FindObjectsOfType<RoomArea>();
         restArea = GameObject.FindObjectOfType<RestArea>();
 
         addNewHuman();
         addNewHuman();
         addNewHuman();
         addNewHuman();
+
+
+        roomInfos = CsvUtil.LoadObjects<RoomInfo>("buff");
+        foreach (var info in roomInfos)
+        {
+            roomInfoDict[info.type] = info;
+        }
     }
 
     public void addNewHuman()

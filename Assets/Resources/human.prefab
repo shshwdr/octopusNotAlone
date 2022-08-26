@@ -603,8 +603,11 @@ MonoBehaviour:
   energyReduceAmount: 0.3
   energyIncreaseAmount: 1
   energy: 0
+  spriteRender: {fileID: 4203940679900657235}
   hasPincer: 0
   hasTentacle: 0
   hasShortLegs: 0
   noHelmet: 0
+  idleAnimationName: idle
+  workAnimationName: run
   energyFillImage: {fileID: 7021339496552151761}

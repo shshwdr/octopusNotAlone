@@ -14,16 +14,26 @@ public class Human : MonoBehaviour
     float energyTimer = 0;
     public float energy;
 
+    public Renderer spriteRender;
+
 
     public bool hasPincer;
     public bool hasTentacle;
     public bool hasShortLegs;
-    public bool noHelmet;
+    public bool noHelmet; 
+    public Spine.AnimationState spineAnimationState;
+
+    [Header("Transitions")]
+    [SpineAnimation]
+    public string idleAnimationName;
+    [Header("Transitions")]
+    [SpineAnimation]
+    public string workAnimationName;
 
     public Image energyFillImage;
 
     SkeletonAnimation skeletonAnimation;
-
+    public AreaBase currentArea;
     string workType = "rest";
     // Start is called before the first frame update
     void Awake()
@@ -31,6 +41,10 @@ public class Human : MonoBehaviour
         energy = maxEnergy;
         energyFillImage.fillAmount = energy / maxEnergy;
         skeletonAnimation = GetComponentInChildren<SkeletonAnimation>();
+        spineAnimationState = skeletonAnimation.AnimationState;
+       // var material = Instantiate<Material>(spriteRender.material);
+        //var material = new Material(Shader.Find("Spine/Skeleton Fill"));
+        //spriteRender.material = material;
     }
 
     public void init()
@@ -120,9 +134,12 @@ public class Human : MonoBehaviour
         this.workType = "";
         energyTimer = 0;
     }
-    public void startWorking(string workType)
+    public void startWorking(AreaBase area)
     {
+        currentArea = area;
+        string workType = currentArea.room.workType;
         this.workType = workType;
+        updateAnimation();
         //switch (workType)
         //{
         //    case "critical":
@@ -132,5 +149,19 @@ public class Human : MonoBehaviour
 
         //}
 
+    }
+
+    void updateAnimation()
+    {
+        if(workType == "rest")
+        {
+
+            spineAnimationState.SetAnimation(0, idleAnimationName, true);
+        }
+        else
+        {
+
+            spineAnimationState.SetAnimation(0, workAnimationName, true);
+        }
     }
 }

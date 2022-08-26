@@ -22,7 +22,7 @@ public class AreaBase:MonoBehaviour
     {
         humans.Add(human);
         //RoomsAndHumanManager.Instance. addHuman(human);
-        human.startWorking(room.workType);
+        human.startWorking(this);
     }
 
     public void removeHuman(Human human)
