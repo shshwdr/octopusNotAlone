@@ -1,5 +1,6 @@
-﻿type,upgradeCost,upgradeHumanCount,otherValue,otherValueType
-rest,50|100|200|400,8|12|18|26|36,100|120|150|200,humanHP
-happy,50|100|200|400,2|4|6|8|10,100|200|350|600,happyMaxValue
-food,50|100|200|400,2|4|6|8|10,24|36|54|78|108,foodMaxValue
-breed,50|100|200|400,2|4|6|8|10,,
+﻿type,upgradeCost,upgradeHumanCount,otherValue,otherValueType,displayName,desc,humanCountDesc,otherUpgradeDesc,upgradeDesc
+rest,50|100|200|400,6|12|18|24|30,100|120|140|160|180,humanHP,Storage,Human rest here,Total human capacity: ,Human Energy:,Upgrade Cost:
+critical,50|100|200|400,2|4|6|8|10,100|200|350|600|800,happyMaxValue,Recreation Room,Human please me here.,Room capacity: ,Max Happiness:,Upgrade Cost:
+food,50|100|200|400,2|4|6|8|10,24|36|54|78|108|150,foodMaxValue,Kitchen,Human make food for themselves here.,Room capacity: ,Max Food:,Upgrade Cost:
+breed,50|100|200|400,2|4|6|8|10,,,Nuseries,Human breed here.,Room capacity: ,,Upgrade Cost:
+discard,,,,,Dumping Area,Human is dumped here.,,,

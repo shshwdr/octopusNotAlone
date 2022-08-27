@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class CriticalArea : MonoBehaviour
 {
-    public float generateTime = 1f;
     float timer; 
     ActionArea actionArea;
+    float amount = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,10 +17,22 @@ public class CriticalArea : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        if (timer >= generateTime)
+        if (timer >= GameManager.Instance.criticalGenerateTime)
         {
             timer = 0;
-            ResourceManager.Instance.changeAmount("happy", actionArea.humans.Count);
+            foreach (var human in actionArea.humans)
+            {
+                amount += human.foodGenerateAmount();
+            }
+            int intAmount = Mathf.FloorToInt(amount);
+            if (intAmount > 0)
+            {
+                amount -= intAmount;
+                ResourceManager.Instance.changeAmount("happy", intAmount);
+
+                PopupTextManager.Instance.ShowPopupNumber(transform.position, intAmount, intAmount);
+
+            }
         }
     }
 }

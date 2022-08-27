@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TimeController : MonoBehaviour
+public class TimeController : Singleton<TimeController>
 {
-    public int calculateTime = 5;
+
     float time;
     public Text timeText;
     int round = 0;
     // Start is called before the first frame update
     void Start()
     {
-        time = calculateTime;
+        time = GameManager.Instance.calculateTime;
         
     }
 
@@ -22,16 +22,19 @@ public class TimeController : MonoBehaviour
         time -= Time.deltaTime;
         if (time <= 0)
         {
-            time = calculateTime;
+            time = GameManager.Instance.calculateTime;
             calculate();
         }
-        timeText.text = (Mathf.Floor(time)).ToString();
+        timeText.text = $"Round: {round} Left Time:{(Mathf.Floor(time)).ToString()}"; ;
     }
+
+    public int decreaseHappyNextRound { get { return (GameManager.Instance.happyDecreaseBasePerRound + Mathf.FloorToInt(round / GameManager.Instance.happyIncreaseRound) * GameManager.Instance.happyIncreasePerTime); } }
+    public int decreaseFoodNextRound { get { return RoomsAndHumanManager.Instance.humans.Count * GameManager.Instance.foodDecreaseBasePerRoundPerPerson; } }
 
     void calculate()
     {
-        ResourceManager.Instance.changeAmount("happy", -5 - (round));
-        ResourceManager.Instance.changeAmount("food", -RoomsAndHumanManager.Instance.humans.Count);
+        ResourceManager.Instance.changeAmount("happy", -decreaseHappyNextRound);
+        ResourceManager.Instance.changeAmount("food", -decreaseFoodNextRound);
         round++;
 
     }

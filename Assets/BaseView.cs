@@ -25,7 +25,7 @@ public class BaseView: MonoBehaviour
     }
     public virtual void hideView()
     {
-        Time.timeScale = originTimeScale;
+        Time.timeScale = 1;
         //FMODUnity.RuntimeManager.PlayOneShot("event:/menu out");
         //audioSource = GameObject.Find("sfx").GetComponent<AudioSource>();
         //audioSource.PlayOneShot(hideAudio);

@@ -7,10 +7,6 @@ using UnityEngine.UI;
 
 public class Human : MonoBehaviour
 {
-    public float maxEnergy = 20;
-    public float energyReduceTime = 1;
-    public float energyReduceAmount = 0.5f;
-    public float energyIncreaseAmount = 1f;
     float energyTimer = 0;
     public float energy;
 
@@ -20,7 +16,7 @@ public class Human : MonoBehaviour
     public bool hasPincer;
     public bool hasTentacle;
     public bool hasShortLegs;
-    public bool noHelmet; 
+    public bool noHelmet;
     public Spine.AnimationState spineAnimationState;
 
     [Header("Transitions")]
@@ -35,14 +31,16 @@ public class Human : MonoBehaviour
     SkeletonAnimation skeletonAnimation;
     public AreaBase currentArea;
     string workType = "rest";
+
+    public bool isDead = false;
     // Start is called before the first frame update
     void Awake()
     {
-        energy = maxEnergy;
-        energyFillImage.fillAmount = energy / maxEnergy;
+        energy = 1000;
+        //energyFillImage.fillAmount = energy / maxEnergy;
         skeletonAnimation = GetComponentInChildren<SkeletonAnimation>();
         spineAnimationState = skeletonAnimation.AnimationState;
-       // var material = Instantiate<Material>(spriteRender.material);
+        // var material = Instantiate<Material>(spriteRender.material);
         //var material = new Material(Shader.Find("Spine/Skeleton Fill"));
         //spriteRender.material = material;
     }
@@ -77,13 +75,18 @@ public class Human : MonoBehaviour
 
     }
 
+    public float getMaxEnergy()
+    {
+                return RoomsAndHumanManager.Instance.getRoomByName("rest").other;
+    }
+
     // Update is called once per frame
     void Update()
     {
         //test
         if (Input.GetKeyDown(KeyCode.A))
         {
-            
+
         }
 
 
@@ -91,39 +94,45 @@ public class Human : MonoBehaviour
         {
 
             energyTimer += Time.deltaTime;
-            if (energyTimer >= energyReduceTime)
+            if (energyTimer >= GameManager.Instance.humanEnergyReduceTime)
             {
                 energyTimer = 0;
                 if (this.workType == "rest")
                 {
-                    energy+= energyIncreaseAmount;
-                    energy = Mathf.Min(energy, maxEnergy);
+                    energy += GameManager.Instance.humanEnergyIncreaseAmount;
                 }
                 else
                 {
-                    energy-= energyReduceAmount;
+                    energy -= GameManager.Instance.humanEnergyReduceAmount;
                     if (energy <= 0)
                     {
                         die();
                     }
                 }
-                energyFillImage.fillAmount = energy / maxEnergy;
+
+                energy = Mathf.Min(energy, getMaxEnergy());
+                energyFillImage.fillAmount = energy / getMaxEnergy();
             }
         }
 
     }
 
+    public void kill()
+    {
+        die();
+    }
+
     void die()
     {
-        var parentRoom = GetComponentInParent<AreaBase>();
-        if (parentRoom)
+        isDead = true;
+        if (currentArea && currentArea.GetComponent<AreaBase>())
         {
-            parentRoom.removeHuman(this);
+            currentArea.GetComponent<AreaBase>().removeHuman(this);
             RoomsAndHumanManager.Instance.removeHuman(this);
         }
         else
         {
-            Debug.LogError("no room?");
+            //Debug.LogError("no room?");
             RoomsAndHumanManager.Instance.removeHuman(this);
         }
         Destroy(gameObject);
@@ -134,6 +143,12 @@ public class Human : MonoBehaviour
         this.workType = "";
         energyTimer = 0;
     }
+
+    public float foodGenerateAmount()
+    {
+        return GameManager.Instance.originalFoodGenerateAmount;
+    }
+
     public void startWorking(AreaBase area)
     {
         currentArea = area;
@@ -153,7 +168,7 @@ public class Human : MonoBehaviour
 
     void updateAnimation()
     {
-        if(workType == "rest")
+        if (workType == "rest")
         {
 
             spineAnimationState.SetAnimation(0, idleAnimationName, true);

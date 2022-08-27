@@ -471,6 +471,26 @@ namespace Sinbad
                 }
                 return res;
             }
+            else if (t == typeof(List<float>))
+            {
+                List<float> res = new List<float>();
+                string[] pairs = strValue.Split('|');
+                if(pairs.Length == 0 || pairs[0].Length == 0)
+                {
+                    return res;
+                }
+                foreach (string pair in pairs)
+                {
+                    float floatValue;
+                    if (!float.TryParse(pair, out floatValue))
+                    {
+
+                        Debug.LogError("value " + pair + " is not a float");
+                    }
+                    res.Add(floatValue);
+                }
+                return res;
+            }
             if (strValue == "")
             {
                 strValue = "0";

@@ -198,9 +198,9 @@ public class EventManager : Singleton<EventManager>
 
         }
 
-        GameObject.FindObjectOfType<EventMenu>(true).Init(selectInfo.text, eventButtons);
+        EventMenu.showEvent(selectInfo.text, eventButtons);
+       // EventMenu.showEvent(selectInfo.text, eventButtons);
 
-        GameObject.FindObjectOfType<EventMenu>(true).showView();
     }
 
     Action getAction(List<string> effects)

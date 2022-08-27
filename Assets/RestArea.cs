@@ -11,11 +11,13 @@ public class RestArea : AreaBase
         return humans.OrderBy(human => -human.energy);
     }
 
-    private void Start()
+    public override bool canAddHuman()
     {
-        foreach(var human in GetComponentsInChildren<Human>())
-        {
-            addHuman(human);
-        }
+        return true;
+    }
+    public override void updateHumanAmountText()
+    {
+
+        room.humanAmount.text = $"{humans.Count}";
     }
 }

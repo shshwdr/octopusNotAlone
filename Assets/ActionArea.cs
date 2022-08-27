@@ -7,36 +7,31 @@ using UnityEngine.EventSystems;
 public class ActionArea : AreaBase
 {
 
-    // Start is called before the first frame update
-    void Start()
-    { 
-    }
 
-
-    void Update()
-    {
-        //if (!EventSystem.current.IsPointerOverGameObject())
-        //{
-        //    if (Input.GetMouseButtonUp(0))
-        //    {
-        //        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //        RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero);
-        //        if (hit && hit.collider.gameObject == gameObject)
-        //        {
-        //            StartCoroutine(addMinion());
-        //        }
-        //    }
-        //    else if (Input.GetMouseButtonUp(1))
-        //    {
-        //        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //        RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero);
-        //        if (hit && hit.collider.gameObject == gameObject)
-        //        {
-        //            StartCoroutine(removeMinion());
-        //        }
-        //    }
-        //}
-    }
+    //void Update()
+    //{
+    //    //if (!EventSystem.current.IsPointerOverGameObject())
+    //    //{
+    //    //    if (Input.GetMouseButtonUp(0))
+    //    //    {
+    //    //        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //    //        RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero);
+    //    //        if (hit && hit.collider.gameObject == gameObject)
+    //    //        {
+    //    //            StartCoroutine(addMinion());
+    //    //        }
+    //    //    }
+    //    //    else if (Input.GetMouseButtonUp(1))
+    //    //    {
+    //    //        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //    //        RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero);
+    //    //        if (hit && hit.collider.gameObject == gameObject)
+    //    //        {
+    //    //            StartCoroutine(removeMinion());
+    //    //        }
+    //    //    }
+    //    //}
+    //}
 
 
     public  IEnumerator removeMinion()

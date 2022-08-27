@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class FoodArea : MonoBehaviour
 {
-    public float generateTime = 1f;
     float timer;
     ActionArea actionArea;
-    // Start is called before the first frame update
-    void Start()
+
+    float amount = 0;
+// Start is called before the first frame update
+void Start()
     {
         actionArea = GetComponent<ActionArea>();
     }
@@ -17,10 +18,22 @@ public class FoodArea : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        if (timer >= generateTime)
+        if (timer >= GameManager.Instance.foodGenerateTime)
         {
             timer = 0;
-            ResourceManager.Instance.changeAmount("food", actionArea.humans.Count);
+            foreach(var human in actionArea.humans)
+            {
+                amount += human.foodGenerateAmount();
+            }
+            int intAmount = Mathf.FloorToInt(amount);
+            if (intAmount > 0)
+            {
+                amount -= intAmount;
+                ResourceManager.Instance.changeAmount("food", intAmount);
+
+                PopupTextManager.Instance.ShowPopupNumber(transform.position, intAmount, intAmount);
+
+            }
         }
     }
 }
