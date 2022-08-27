@@ -29,7 +29,13 @@ public class TimeController : Singleton<TimeController>
     }
 
     public int decreaseHappyNextRound { get { return (GameManager.Instance.happyDecreaseBasePerRound + Mathf.FloorToInt(round / GameManager.Instance.happyIncreaseRound) * GameManager.Instance.happyIncreasePerTime); } }
-    public int decreaseFoodNextRound { get { return RoomsAndHumanManager.Instance.humans.Count * GameManager.Instance.foodDecreaseBasePerRoundPerPerson; } }
+    public int decreaseFoodNextRound { get { float res = 0;
+            foreach (var human in RoomsAndHumanManager.Instance.humans)
+            {
+                res += human.foodConsumeAmount();
+            }
+            return (int)res;
+        } }
 
     void calculate()
     {

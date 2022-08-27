@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EventCell : MonoBehaviour
 {
     public BuffInfo eventInfo;
     EventListMenu listMenu;
+    public Image image;
     public void init(string eventString)
     {
         if (!BuffManager.Instance.buffDict.ContainsKey(eventString))
@@ -15,6 +17,7 @@ public class EventCell : MonoBehaviour
         }
         eventInfo = BuffManager.Instance.buffDict[eventString];
         listMenu = GetComponentInParent<EventListMenu>();
+        image.sprite = Resources.Load<Sprite>("icons/" + eventString);
     }
 
     public void onHover()

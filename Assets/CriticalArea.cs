@@ -22,7 +22,7 @@ public class CriticalArea : MonoBehaviour
             timer = 0;
             foreach (var human in actionArea.humans)
             {
-                amount += human.foodGenerateAmount();
+                amount += human.happyGenerateAmount();
             }
             int intAmount = Mathf.FloorToInt(amount);
             if (intAmount > 0)

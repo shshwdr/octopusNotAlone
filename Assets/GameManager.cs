@@ -27,6 +27,9 @@ public class GameManager : Singleton<GameManager>
     public float humanEnergyReduceAmount = 0.5f;
     public float humanEnergyIncreaseAmount = 1f;
 
+    public float mutationGeneralRate = 0.2f;
+    public float mutationParentRate = 0.7f;
+
     // Start is called before the first frame update
     void Start()
     {

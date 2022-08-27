@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1701277321, guid: 8ac6d622b3bac1c46a905f804171bd1f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3835326014581280693, guid: 8ac6d622b3bac1c46a905f804171bd1f, type: 3}
       propertyPath: m_Name
       value: SpawnArea Variant
@@ -66,6 +70,10 @@ PrefabInstance:
     - target: {fileID: 3835326015121983602, guid: 8ac6d622b3bac1c46a905f804171bd1f, type: 3}
       propertyPath: m_SortingLayerID
       value: -1821501557
+      objectReference: {fileID: 0}
+    - target: {fileID: 4777827048993151423, guid: 8ac6d622b3bac1c46a905f804171bd1f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ac6d622b3bac1c46a905f804171bd1f, type: 3}

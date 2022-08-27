@@ -25,6 +25,9 @@ void Start()
             {
                 amount += human.foodGenerateAmount();
             }
+
+
+
             int intAmount = Mathf.FloorToInt(amount);
             if (intAmount > 0)
             {

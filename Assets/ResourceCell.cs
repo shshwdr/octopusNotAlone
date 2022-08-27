@@ -53,13 +53,13 @@ public class ResourceCell : MonoBehaviour
         if (isWarning) return;
         isWarning = true;
         valueText.gameObject.SetActive(true);
-        valueText.color = Color.black;
+        valueText.color = Color.white;
         DOTween.To(() => valueText.color, x => valueText.color = x, Color.red, 0.3f).SetLoops(-1, LoopType.Yoyo);
     }
     void stopWarning()
     {
         isWarning = false;
-        valueText.color = Color.black;
+        valueText.color = Color.white;
     }
 
 }

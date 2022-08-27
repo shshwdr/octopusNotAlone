@@ -34,6 +34,24 @@ public class Human : MonoBehaviour
 
     public bool isDead = false;
     // Start is called before the first frame update
+
+    public bool isType(string type)
+    {
+        switch (type)
+        {
+            case "shortLeg":
+                return hasShortLegs;
+            case "tentacleArm":
+                return hasTentacle;
+            case "pincerArm":
+                return hasPincer;
+            case "breathWithoutHelmet":
+                return noHelmet;
+
+
+        }
+        return false;
+    }
     void Awake()
     {
         energy = 1000;
@@ -99,11 +117,11 @@ public class Human : MonoBehaviour
                 energyTimer = 0;
                 if (this.workType == "rest")
                 {
-                    energy += GameManager.Instance.humanEnergyIncreaseAmount;
+                    energy += recoverEnergyAmount();
                 }
                 else
                 {
-                    energy -= GameManager.Instance.humanEnergyReduceAmount;
+                    energy -= consumeEnergyAmount();
                     if (energy <= 0)
                     {
                         die();
@@ -115,6 +133,27 @@ public class Human : MonoBehaviour
             }
         }
 
+    }
+
+    float consumeEnergyAmount()
+    {
+        var res = GameManager.Instance.humanEnergyReduceAmount;
+        if (hasShortLegs)
+        {
+            res *= 1.5f;
+        }
+        if (noHelmet)
+        {
+            res *= 0.7f;
+        }
+        return res;
+    }
+
+    float recoverEnergyAmount()
+    {
+        var res = GameManager.Instance.humanEnergyIncreaseAmount;
+        res *= BuffManager.Instance.getBuffEffects("recover");
+        return res;
     }
 
     public void kill()
@@ -146,7 +185,52 @@ public class Human : MonoBehaviour
 
     public float foodGenerateAmount()
     {
-        return GameManager.Instance.originalFoodGenerateAmount;
+        var res = GameManager.Instance.originalFoodGenerateAmount;
+        if (hasTentacle)
+        {
+            res *= 0.5f;
+        }
+        if (hasPincer)
+        {
+            res *= 2f;
+        }
+        res *= BuffManager.Instance.buffEffects["food"];
+        return res;
+    }
+
+    public float happyGenerateAmount()
+    {
+        var res = GameManager.Instance.originalFoodGenerateAmount;
+        if (hasTentacle)
+        {
+            res *= 2f;
+        }
+        if (hasShortLegs)
+        {
+            res *= 2f;
+        }
+        if (hasPincer)
+        {
+            res /= 2f;
+        }
+        if (noHelmet)
+        {
+            res /= 2f;
+        }
+        res *= BuffManager.Instance.buffEffects["happy"];
+        return res;
+    }
+
+    public float foodConsumeAmount()
+    {
+        float res = GameManager.Instance.foodDecreaseBasePerRoundPerPerson;
+
+        if (noHelmet)
+        {
+            res *= 2f;
+        }
+        res *= BuffManager.Instance.buffEffects["foodConsume"];
+        return res;
     }
 
     public void startWorking(AreaBase area)

@@ -49,6 +49,22 @@ public class AreaBase:MonoBehaviour
         human.startWorking(this);
 
         updateHumanAmountText();
+
+        if(room.workType == "critical")
+        {
+            TutorialManager.Instance.showTutorial("afterHappy_0");
+        }
+        else if (room.workType == "food")
+        {
+
+            TutorialManager.Instance.showTutorial("afterFood_0");
+        }
+        else if (room.workType == "breed" && humans.Count>1)
+        {
+
+            TutorialManager.Instance.showTutorial("afterBreed_0");
+        }
+        
     }
 
     public void removeHuman(Human human)

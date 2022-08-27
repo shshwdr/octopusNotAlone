@@ -180,6 +180,23 @@ public class RoomsAndHumanManager : Singleton<RoomsAndHumanManager>
         }
     }
 
+    public void killHuman(string type, int amount)
+    {
+        
+        foreach(var human in humans)
+        {
+            if (human.isType(type))
+            {
+                human.kill();
+                amount -= 1;
+                if(amount == 0)
+                {
+                    return;
+                }
+            }
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {

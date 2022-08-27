@@ -24,6 +24,9 @@ public class EventMenu : BaseView
     public Text text;
     public List<Button> reactButtons;
 
+    public Image eventImage;
+    public GameObject eventObject;
+
     List<EventButtonInfo> buttonInfo;
     public override void showView()
     {
@@ -51,20 +54,40 @@ public class EventMenu : BaseView
         }
     }
 
-    static public void showEvent(string t, List<EventButtonInfo> bf, bool isTutorial = false)
+    static public void showEvent(string t, List<EventButtonInfo> bf, string image = null,bool isTutorial = false)
     {
         var go = Instantiate(Resources.Load<GameObject>("Event"),GameObject.Find("MainCanvas").transform);
-        go.GetComponent<EventMenu>().Init(t, bf, isTutorial);
+        go.GetComponent<EventMenu>().Init(t, bf, image, isTutorial);
 
-        //go.GetComponent<EventMenu>().showView();
+        go.GetComponent<EventMenu>().showView();
     }
 
-    public void Init(string t, List<EventButtonInfo> bf,bool isTutorial)
+    public void Init(string t, List<EventButtonInfo> bf,string image,bool isTutorial)
     {
         text.text = t;
         buttonInfo = bf;
 
         clearButton();
+
+        if (image!=null && image.Length>0)
+        {
+            var sprite = Resources.Load<Sprite>("icons/" + image);
+            if (sprite)
+            {
+
+                eventImage.sprite = sprite;
+                eventObject.SetActive(true);
+            }
+            else
+            {
+                eventObject.SetActive(false);
+
+            }
+        }
+        else
+        {
+            eventObject.SetActive(false);
+        }
 
         for(int i = 0; i < buttonInfo.Count; i++)
         {

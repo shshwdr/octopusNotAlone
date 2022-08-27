@@ -22,6 +22,9 @@ public class EventInfo
     public string option3Text;
     public List<string> option3Effect;
     public string option3ResultText;
+
+    public string image;
+    public int isLocked;
 }
 public class EventManager : Singleton<EventManager>
 {
@@ -49,6 +52,10 @@ public class EventManager : Singleton<EventManager>
         foreach(var info in eventInfos)
         {
             if(info.name == "")
+            {
+                continue;
+            }
+            if (info.isLocked == 1)
             {
                 continue;
             }
@@ -203,22 +210,38 @@ public class EventManager : Singleton<EventManager>
 
     }
 
+    HashSet<string> prerequisiteUnlocked = new HashSet<string>();
+
     Action getAction(List<string> effects)
     {
         return () => {
             foreach (var eff in effects)
             {
-                if (eff == "kill")
+                var effs = eff.Split('_');
+                switch (effs[0])
                 {
+                    case "kill":
+                        var killType = effs[1];
+                        var killAmount = effs[2];
+                        break;
+                    case "buff":
+                    case "add":
+                        BuffManager.Instance.activateBuff(eff);
+                        break;
+                    case "unlock":
+                        prerequisiteUnlocked.Add(effs[1]);
+                        break;
+                    case "canBreed":
+                        BreedManager.Instance.addCanBreedMutation(effs[1]);
+                        break;
+                    case "addHuman":
+                        for(int i = 0; i < int.Parse( effs[2]); i++)
+                        {
+                            RoomsAndHumanManager.Instance.addNewHuman();
+                        }
+                        break;
 
-                }
-                else if (eff.StartsWith("buff_"))
-                {
-                    BuffManager.Instance.activateBuff(eff);
-                }
-                else if (eff.StartsWith("add_"))
-                {
-                    BuffManager.Instance.activateBuff(eff);
+
                 }
             }
         };

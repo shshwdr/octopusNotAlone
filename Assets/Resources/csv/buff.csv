@@ -1,10 +1,11 @@
-﻿name,explain,maxValue
-add_shortLeg,Human can mutate to have short leg,
-add_tentacleArm,Human can mutate to have tentacles,
-add_pincerArm,Human can mutate to have pincers,
-add_breathWithoutHelmet,Human can mutate to breath in space.,
-buff_worshipPincerEfficiency,Human worship pincer and less efficient.,
-buff_meteoFairSlow,Human afraid of meteo and work slow,
-buff_petRecoverFaster,Human loves pets and recover faster,
-buff_worshipTentacleEfficiency,Human worship tentacle and more efficient.,
-buff_tradeFear,Human afraid of being sold and work slow,
+﻿name,explain,affect,multiplier
+add_shortLeg,Human can mutate to have short leg. They will produce 2x happiness but consume more energy.,,
+add_tentacleArm,Human can mutate to have tentacles. They will produce 2x happiness but 0.5x food.,,
+add_pincerArm,Human can mutate to have pincers. They will produce 2x food but 0.5x happiness.,,
+add_breathWithoutHelmet,Human can mutate to breath in space. Their energy consumed slow but eat 2x food. ,,
+buff_worshipPincerEfficiency,Human worship pincer and work 20% better to make food.,food,2
+buff_meteoFairSlow,Human afraid of meteo and work 20% worse to make me happy.,happy,0.5
+buff_petRecoverFaster,Human loves pets and recover 50% faster in rest room.,recover,1.5
+buff_worshipTentacleEfficiency,Human worship tentacle and work 20% better to make me happy.,happy,2
+buff_tradeFear,Human afraid of being sold and eat 50% extra food.,foodConsume,2
+buff_newHumanLessEfficiency,There are some newcomers exuding a sense of sabotage. Work 20% worse to make me happy.,happy,0.5
