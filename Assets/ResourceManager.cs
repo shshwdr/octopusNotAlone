@@ -45,6 +45,15 @@ public class ResourceManager : Singleton<ResourceManager>
         if (resouceAmount[type] <= 0)
         {
             resouceAmount[type] = 0;
+
+            if(type == "food")
+            {
+                EventManager.Instance.showEventInfo("noFood");
+            }else if(type == "happy")
+            {
+
+                EventManager.Instance.showEventInfo("notHappy");
+            }
         }
         EventPool.Trigger("updateResource");
 

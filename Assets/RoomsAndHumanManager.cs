@@ -159,11 +159,11 @@ public class RoomsAndHumanManager : Singleton<RoomsAndHumanManager>
     {
         return maxTotalHumanCount > humans.Count;
     }
-    public void addNewHuman()
+    public void addNewHuman(Human p1 = null, Human p2 = null)
     {
         var position = restArea.GetComponent<RoomArea>() .capturePosition();
         var human = Instantiate(Resources.Load<GameObject>("human"), position, Quaternion.identity);
-        BreedManager.Instance.breed(human.GetComponent<Human>(), human.GetComponent<Human>(), human.GetComponent<Human>());
+        BreedManager.Instance.breed(p1, p2, human.GetComponent<Human>());
 
         if (canAddHuman())
         {
@@ -180,12 +180,24 @@ public class RoomsAndHumanManager : Singleton<RoomsAndHumanManager>
         }
     }
 
-    public void killHuman(string type, int amount)
+    public bool hasType(string str)
     {
-        
         foreach(var human in humans)
         {
-            if (human.isType(type))
+            if (human.isType(str))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void killHuman(string type, int amount, bool isOpposite)
+    {
+
+        foreach (var human in humans)
+        {
+            if (type == "any" || (!isOpposite&&human.isType(type)) || (isOpposite && !human.isType(type)))
             {
                 human.kill();
                 amount -= 1;
@@ -213,5 +225,10 @@ public class RoomsAndHumanManager : Singleton<RoomsAndHumanManager>
     {
         humans.Remove(human);
         EventPool.Trigger("humanCountChange");
+        if (humans.Count <= 0)
+        {
+
+            EventManager.Instance.showEventInfo("noHuman");
+        }
     }
 }

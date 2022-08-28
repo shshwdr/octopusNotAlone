@@ -8,6 +8,8 @@ public class EventInfo
     public string name;
     public string type;
     public string text;
+
+    public List<string> checks;
     public List<string> prerequisite;
     public string option1Text;
     public List<string> option1Effect;
@@ -42,6 +44,8 @@ public class EventManager : Singleton<EventManager>
 
     public HashSet<EventInfo> visitedEventInfo = new HashSet<EventInfo>();
     public HashSet<string> visitedEventInfoName = new HashSet<string>();
+
+    HashSet<string> prerequisiteUnlocked = new HashSet<string>();
 
     bool waitForLastEvent = false;
     // Start is called before the first frame update
@@ -103,13 +107,42 @@ public class EventManager : Singleton<EventManager>
         }
     }
 
+    bool canPassCheck(EventInfo info)
+    {
+        foreach (var ch in info.checks)
+        {
+            if (!RoomsAndHumanManager.Instance.hasType(ch))
+            {
+                return false;
+            }
+        }return true;
+    }
+
+    List<EventInfo> canPickEvents()
+    {
+        List<EventInfo> res = new List<EventInfo>();
+        foreach(var info in unlockedEventInfos)
+        {
+            if (canPassCheck(info))
+            {
+                res.Add(info);
+            }
+        }
+        return res;
+    }
+
     void pickEventAndStart()
     {
         if (unlockedEventInfos.Count > 0)
         {
-            var selectInfo = unlockedEventInfos[UnityEngine.Random.Range(0, unlockedEventInfos.Count)];
+            var canpick = canPickEvents();
+            if(canpick.Count == 0)
+            {
+                Debug.LogError("no events now");
+                return;
+            }
+            var selectInfo = canpick[UnityEngine.Random.Range(0, canpick.Count)];
 
-            //check
 
             Debug.Log(selectInfo.name);
             visitedEventInfo.Add(selectInfo);
@@ -163,7 +196,7 @@ public class EventManager : Singleton<EventManager>
             bool canUnlock = true;
             foreach(var pre in eventInfo.prerequisite)
             {
-                if (!visitedEventInfoName.Contains(pre))
+                if (!prerequisiteUnlocked.Contains(pre))
                 {
                     canUnlock = false;
                     break;
@@ -210,7 +243,6 @@ public class EventManager : Singleton<EventManager>
 
     }
 
-    HashSet<string> prerequisiteUnlocked = new HashSet<string>();
 
     Action getAction(List<string> effects)
     {
@@ -223,6 +255,8 @@ public class EventManager : Singleton<EventManager>
                     case "kill":
                         var killType = effs[1];
                         var killAmount = effs[2];
+                        var killOpposite = effs.Length>3 &&  (effs[3] == "op");
+                        RoomsAndHumanManager.Instance.killHuman(killType, int.Parse( killAmount), killOpposite);
                         break;
                     case "buff":
                     case "add":
@@ -239,6 +273,9 @@ public class EventManager : Singleton<EventManager>
                         {
                             RoomsAndHumanManager.Instance.addNewHuman();
                         }
+                        break;
+                    case "restart":
+                        GameManager.Instance.restartGame();
                         break;
 
 

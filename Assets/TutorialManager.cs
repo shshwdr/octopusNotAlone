@@ -10,7 +10,7 @@ public class TutorialManager : Singleton<TutorialManager>
         {"first_0","I'm living on this planet alone for decades." },
         {"first_00","One day I accidentally caught some minion who called themselves human. So I start to raise them on my planet, hope they can make me not alone." },
        // {"first_000","" },
-        {"first_000","Try drag one to the right place to let them perform and make you happy." },
+        {"first_000","Try drag one to the right place to let them perform and make me happy." },
 
 
         {"afterHappy_0","Look at it. What a cute way to kick its little feet. Hahaha." },
@@ -25,7 +25,8 @@ public class TutorialManager : Singleton<TutorialManager>
 
         {"afterBreed_0","That's everything I can do to those tiny guys. Watch out when they spawn too many, I can only have certain number of them on my planet now, so those who are exceed the number will be killed." },
         {"afterBreed_00","If they make me happy enough, I can upgrade to have more of them. But if not, I can also drag some to the bottom to kill them manually." },
-        {"afterBreed_000","Anyway they are just... pets? I have them for fun, not for making myself busy." },
+         {"afterBreed_000","Every day they need to eat and My interest to them might get down. Keep track of that on the top left." },
+        {"afterBreed_0000","But no need to worry too much. Anyway they are just... pets? I have them for fun, not for making myself busy." },
 
 
     };

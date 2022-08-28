@@ -32,7 +32,14 @@ public class SpawnArea : MonoBehaviour
             if (timer >= GameManager.Instance.childGenerateTime)
             {
                 timer = 0;
-                RoomsAndHumanManager.Instance.addNewHuman();
+
+                var pickP1 = actionArea.humans[Random.Range(0, actionArea.humans.Count)];
+                var tempHumans = new List<Human>(actionArea.humans);
+                tempHumans.Remove(pickP1);
+
+                var pickP2 = tempHumans[Random.Range(0, tempHumans.Count)];
+
+                RoomsAndHumanManager.Instance.addNewHuman(pickP1,pickP2);
 
 
                 PopupTextManager.Instance.ShowPopupNumber(transform.position, 1, 1);

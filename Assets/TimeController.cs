@@ -25,7 +25,7 @@ public class TimeController : Singleton<TimeController>
             time = GameManager.Instance.calculateTime;
             calculate();
         }
-        timeText.text = $"Round: {round} Left Time:{(Mathf.Floor(time)).ToString()}"; ;
+        timeText.text = $"Round: {round}\nLeft Time:{(Mathf.Floor(time)).ToString()}"; ;
     }
 
     public int decreaseHappyNextRound { get { return (GameManager.Instance.happyDecreaseBasePerRound + Mathf.FloorToInt(round / GameManager.Instance.happyIncreaseRound) * GameManager.Instance.happyIncreasePerTime); } }

@@ -41,7 +41,13 @@ public class GameManager : Singleton<GameManager>
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            restartGame();
         }
+    }
+
+    public void restartGame()
+    {
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

@@ -52,10 +52,32 @@ public class Human : MonoBehaviour
         }
         return false;
     }
+
+    public List<string> types()
+    {
+        List<string> res = new List<string>();
+        if (hasShortLegs)
+        {
+            res.Add("shortLeg");
+        }
+        if (hasTentacle)
+        {
+            res.Add("tentacleArm");
+        }
+        if (hasPincer)
+        {
+            res.Add("pincerArm");
+        }
+        if (noHelmet)
+        {
+            res.Add("breathWithoutHelmet");
+        }
+        return res;
+    }
     void Awake()
     {
         energy = 1000;
-        //energyFillImage.fillAmount = energy / maxEnergy;
+        energyFillImage.fillAmount = 1;
         skeletonAnimation = GetComponentInChildren<SkeletonAnimation>();
         spineAnimationState = skeletonAnimation.AnimationState;
         // var material = Instantiate<Material>(spriteRender.material);
@@ -174,7 +196,7 @@ public class Human : MonoBehaviour
             //Debug.LogError("no room?");
             RoomsAndHumanManager.Instance.removeHuman(this);
         }
-        Destroy(gameObject);
+        Destroy(gameObject,1);
     }
 
     public void stopWorking()
