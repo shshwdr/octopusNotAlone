@@ -1,4 +1,6 @@
 using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using Pool;
 using System.Collections;
 using System.Collections.Generic;
@@ -52,14 +54,17 @@ public class ResourceCell : MonoBehaviour
     {
         if (isWarning) return;
         isWarning = true;
+        tween.Kill();
         valueText.gameObject.SetActive(true);
         valueText.color = Color.white;
-        DOTween.To(() => valueText.color, x => valueText.color = x, Color.red, 0.3f).SetLoops(-1, LoopType.Yoyo);
+        tween = DOTween.To(() => valueText.color, x => valueText.color = x, Color.red, 0.3f).SetLoops(-1, LoopType.Yoyo);
     }
+    TweenerCore<Color, Color, ColorOptions> tween;
     void stopWarning()
     {
         isWarning = false;
         valueText.color = Color.white;
+        tween.Kill();
     }
 
 }

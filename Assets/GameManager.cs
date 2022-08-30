@@ -30,10 +30,13 @@ public class GameManager : Singleton<GameManager>
     public float mutationGeneralRate = 0.2f;
     public float mutationParentRate = 0.7f;
 
+    public float discardFood = 3f;
+    public float discardEnergy = 5f;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        Time.timeScale = 1;
     }
 
     // Update is called once per frame

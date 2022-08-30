@@ -27,6 +27,7 @@ public class EventInfo
 
     public string image;
     public int isLocked;
+    public int isRepeated;
 }
 public class EventManager : Singleton<EventManager>
 {
@@ -63,7 +64,11 @@ public class EventManager : Singleton<EventManager>
             {
                 continue;
             }
-            if (info.prerequisite.Count == 0 || info.prerequisite[0].Length == 0)
+            if(info.prerequisite == null)
+            {
+                Debug.Log(info.name);
+            }
+            if (info.prerequisite==null ||info.prerequisite.Count == 0 || info.prerequisite[0].Length == 0)
             {
                 unlockedEventInfos.Add(info);
             }
@@ -85,10 +90,10 @@ public class EventManager : Singleton<EventManager>
         eventIntervalTimer += Time.deltaTime;
         if (eventIntervalTimer >= eventIntervalTime)
         {
-            if (eventCheckTimer == 0)
+            if (eventCheckTimer <= 0)
             {
                 //can have event now
-                if (UnityEngine.Random.Range(0f, 1f) <= eventCheckPossibility)
+                if (eventIntervalTimer>=eventmaxIntervalTime|| UnityEngine.Random.Range(0f, 1f) <= eventCheckPossibility)
                 {
                     //succeed, start an event
                     pickEventAndStart();
@@ -109,13 +114,37 @@ public class EventManager : Singleton<EventManager>
 
     bool canPassCheck(EventInfo info)
     {
+        if(info.checks == null || info.checks.Count == 0 || info.checks[0].Length == 0)
+        {
+            return true;
+        }
+        
         foreach (var ch in info.checks)
         {
-            if (!RoomsAndHumanManager.Instance.hasType(ch))
+            if (ch.StartsWith("mutation"))
             {
-                return false;
+                int mutation = 0;
+                int.TryParse(ch.Split('_')[1], out mutation);
+                if (mutation == 0)
+                {
+                    Debug.LogError("no "+ ch);
+                }
+                if (!RoomsAndHumanManager.Instance.hasMutation(mutation))
+                {
+                    return false;
+                }
             }
-        }return true;
+            else
+            {
+                if (!RoomsAndHumanManager.Instance.hasType(ch))
+                {
+                    return false;
+                }
+
+            }
+
+        }
+        return true;
     }
 
     List<EventInfo> canPickEvents()
@@ -145,9 +174,13 @@ public class EventManager : Singleton<EventManager>
 
 
             Debug.Log(selectInfo.name);
-            visitedEventInfo.Add(selectInfo);
-            visitedEventInfoName.Add(selectInfo.name);
-            unlockedEventInfos.Remove(selectInfo);
+            if(selectInfo.isRepeated != 1)
+            {
+
+                visitedEventInfo.Add(selectInfo);
+                visitedEventInfoName.Add(selectInfo.name);
+                unlockedEventInfos.Remove(selectInfo);
+            }
 
             waitForLastEvent = true;
             if (selectInfo.type == "breed")
@@ -168,6 +201,8 @@ public class EventManager : Singleton<EventManager>
     public void createEventTrigger(EventInfo selectInfo)
     {
 
+        SFXManager.Instance.playeventShowClip();
+        waitForLastEvent = true;
         EventTriggerItem.Instance.info = selectInfo;
         EventTriggerItem.Instance.child.SetActive(true);
         EventTriggerItem.Instance.GetComponent<Collider2D>().enabled = true;
@@ -225,20 +260,20 @@ public class EventManager : Singleton<EventManager>
     {
 
         List<EventButtonInfo> eventButtons = new List<EventButtonInfo>();
-        eventButtons.Add(new EventButtonInfo(selectInfo.option1Text, selectInfo.option1ResultText, getAction(selectInfo.option1Effect)));
+        eventButtons.Add(new EventButtonInfo(selectInfo.option1Text, selectInfo.option1ResultText, getAction(selectInfo.option1Effect), (selectInfo.option1Effect.Count == 2 && selectInfo.option1Effect[1] == "restart")));
         if (selectInfo.option2Text.Length > 0)
         {
-            eventButtons.Add(new EventButtonInfo(selectInfo.option2Text, selectInfo.option2ResultText, getAction(selectInfo.option2Effect)));
+            eventButtons.Add(new EventButtonInfo(selectInfo.option2Text, selectInfo.option2ResultText, getAction(selectInfo.option2Effect), (selectInfo.option1Effect.Count == 2 && selectInfo.option1Effect[1] == "restart")));
 
         }
 
         if (selectInfo.option3Text.Length > 0)
         {
-            eventButtons.Add(new EventButtonInfo(selectInfo.option3Text, selectInfo.option3ResultText, getAction(selectInfo.option3Effect)));
+            eventButtons.Add(new EventButtonInfo(selectInfo.option3Text, selectInfo.option3ResultText, getAction(selectInfo.option3Effect), (selectInfo.option1Effect.Count == 2 && selectInfo.option1Effect[1] == "restart")));
 
         }
 
-        EventMenu.showEvent(selectInfo.text, eventButtons);
+        EventMenu.showEvent(selectInfo.text, eventButtons, selectInfo.image);
        // EventMenu.showEvent(selectInfo.text, eventButtons);
 
     }
@@ -269,7 +304,7 @@ public class EventManager : Singleton<EventManager>
                         BreedManager.Instance.addCanBreedMutation(effs[1]);
                         break;
                     case "addHuman":
-                        for(int i = 0; i < int.Parse( effs[2]); i++)
+                        for(int i = 0; i < int.Parse( effs[1]); i++)
                         {
                             RoomsAndHumanManager.Instance.addNewHuman();
                         }
@@ -277,7 +312,15 @@ public class EventManager : Singleton<EventManager>
                     case "restart":
                         GameManager.Instance.restartGame();
                         break;
+                    case "restore":
+                        ResourceManager.Instance.changeAmount("food", 100);
+                        ResourceManager.Instance.changeAmount("happy", 100);
+                        break;
+                    case "end":
 
+                        SFXManager.Instance.playfailClip();
+                        EndingManager.Instance.activateEnd(effs[1]);
+                        break;
 
                 }
             }

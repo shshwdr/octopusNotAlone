@@ -12,12 +12,13 @@ public class DamageNumber : MonoBehaviour
         numberText.transform.localPosition = Vector3.zero;
         numberText.text = value.ToString();
         Color color = Color.white;
-        if (scale > 1){
-            color = Color.yellow;
-        }else if (scale < 1)
-        {
-            color = Color.gray;
-        }
+        color = Color.yellow;
+        //if (scale > 1){
+        //    color = Color.yellow;
+        //}else if (scale < 1)
+        //{
+        //    color = Color.gray;
+        //}
         numberText.color = color;
 
     }

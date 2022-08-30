@@ -22,6 +22,18 @@ public class Human : MonoBehaviour
     [Header("Transitions")]
     [SpineAnimation]
     public string idleAnimationName;
+    [SpineAnimation]
+    public string happyAnimationName;
+    [SpineAnimation]
+    public string foodAnimationName;
+    [SpineAnimation]
+    public string catchAnimationName;
+    [SpineAnimation]
+    public string spawnAnimationName;
+    [SpineAnimation]
+    public string dieAnimationName;
+    [SpineAnimation]
+    public string fallAnimationName;
     [Header("Transitions")]
     [SpineAnimation]
     public string workAnimationName;
@@ -43,7 +55,7 @@ public class Human : MonoBehaviour
                 return hasShortLegs;
             case "tentacleArm":
                 return hasTentacle;
-            case "pincerArm":
+            case "pincerArm": 
                 return hasPincer;
             case "breathWithoutHelmet":
                 return noHelmet;
@@ -186,6 +198,7 @@ public class Human : MonoBehaviour
     void die()
     {
         isDead = true;
+        updateAnimation("die");
         if (currentArea && currentArea.GetComponent<AreaBase>())
         {
             currentArea.GetComponent<AreaBase>().removeHuman(this);
@@ -196,15 +209,27 @@ public class Human : MonoBehaviour
             //Debug.LogError("no room?");
             RoomsAndHumanManager.Instance.removeHuman(this);
         }
-        Destroy(gameObject,1);
+
+        SFXManager.Instance.playdieClip();
+        Destroy(gameObject,2);
     }
 
     public void stopWorking()
     {
         this.workType = "";
         energyTimer = 0;
+
     }
 
+    public void startCatch()
+    {
+
+        updateAnimation("catch");
+    }
+    public void updateAnimation()
+    {
+        updateAnimation(workType);
+    }
     public float foodGenerateAmount()
     {
         var res = GameManager.Instance.originalFoodGenerateAmount;
@@ -260,7 +285,7 @@ public class Human : MonoBehaviour
         currentArea = area;
         string workType = currentArea.room.workType;
         this.workType = workType;
-        updateAnimation();
+        updateAnimation(workType);
         //switch (workType)
         //{
         //    case "critical":
@@ -272,17 +297,30 @@ public class Human : MonoBehaviour
 
     }
 
-    void updateAnimation()
+    void updateAnimation(string type)
     {
-        if (workType == "rest")
+        switch (type)
         {
+            case "rest":
+                spineAnimationState.SetAnimation(0, idleAnimationName, true);
+                break;
+            case "critical":
+                spineAnimationState.SetAnimation(0, happyAnimationName, true);
+                break;
+            case "food":
+                spineAnimationState.SetAnimation(0, foodAnimationName, true);
+                break;
+            case "breed":
+                spineAnimationState.SetAnimation(0, spawnAnimationName, true);
+                break;
+            case "catch":
+                spineAnimationState.SetAnimation(0, catchAnimationName, false);
+                break;
+            case "die":
+                spineAnimationState.SetAnimation(0, dieAnimationName, false);
+                break;
 
-            spineAnimationState.SetAnimation(0, idleAnimationName, true);
-        }
-        else
-        {
 
-            spineAnimationState.SetAnimation(0, workAnimationName, true);
         }
     }
 }

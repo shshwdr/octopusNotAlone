@@ -42,13 +42,20 @@ public class RoomArea : MonoBehaviour
     public void hideWarningText()
     {
         warningText.transform.DOKill();
+        warningText.color = Color.white;
         warningText.gameObject.SetActive(false);
     }
 
+    int captureID = 0;
     public Vector3 capturePosition()
     {
-        
-        for(int i = 0; i < humanPositions.Count; i++)
+        captureID++;
+        if(captureID>= humanPositions.Count)
+        {
+            captureID = 0;
+        }
+        return humanPositions[captureID].position;
+        for (int i = 0; i < humanPositions.Count; i++)
         {
             var selected = humanPositions[i];
             if (!usedHumanPositions.Contains(selected.position))
@@ -103,6 +110,7 @@ public class RoomArea : MonoBehaviour
 
 
         }
+        SFXManager.Instance.playupgradeClip();
     }
 
     void updateUpgradeButton()

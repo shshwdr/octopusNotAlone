@@ -9,12 +9,14 @@ public class EventButtonInfo
 {
     public string text;
     public string resultText;
+    public bool isRestart;
     public Action action;
 
-    public EventButtonInfo(string t, string r,Action a)
+    public EventButtonInfo(string t, string r,Action a,bool re= false)
     {
         text = t;
         action = a;
+        isRestart = re;
         resultText = r;
     }
 }
@@ -110,9 +112,14 @@ public class EventMenu : BaseView
 
                         clearButton();
                         reactButtons[0].gameObject.SetActive(true);
-                        reactButtons[0].GetComponentInChildren<Text>().text = "OK";
+                        reactButtons[0].GetComponentInChildren<Text>().text = info.isRestart ?"Restart":"OK";
                         reactButtons[0].onClick.AddListener(() =>
                         {
+                            if (info.action != null)
+                            {
+
+                                info.action();
+                            }
                             hideView();
                         });
                     }
@@ -120,14 +127,14 @@ public class EventMenu : BaseView
                 else
                 {
 
+                    if (info.action != null)
+                    {
+
+                        info.action();
+                    }
                     hideView();
                 }
 
-                if (info.action != null)
-                {
-
-                    info.action();
-                }
 
             });
         }

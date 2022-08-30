@@ -70,7 +70,7 @@ public class MouseController : MonoBehaviour
                 LayerMask mask = (LayerMask.GetMask("human"));
 
                 RaycastHit2D humanHit = Physics2D.Raycast(mousePos2D, Vector2.zero, 100, mask);
-                if (humanHit.collider)
+                if (humanHit.collider&& !humanHit.collider.GetComponentInParent<Human>().isDead)
                 {
 
                     var newHuman = humanHit.collider.GetComponentInParent<Human>();
@@ -128,6 +128,8 @@ public class MouseController : MonoBehaviour
                     dragOriginalPosition = hoveredOverHuman.transform.position;
                     draggingHuman = hoveredOverHuman;
                     hoveredOverHuman = null;
+                    draggingHuman.startCatch();
+                    SFXManager.Instance.playgrabClip();
                 }
             }
 
@@ -154,11 +156,7 @@ public class MouseController : MonoBehaviour
                 else
                 {
                     //warning on the room
-                    if (inRoom)
-                    {
-                        inRoom.warnHumanCount();
-
-                    }
+                    
 
                     setNotAcceptableColor(draggingHuman);
                 }
@@ -166,18 +164,29 @@ public class MouseController : MonoBehaviour
 
                 if (Input.GetMouseButtonUp(0))
                 {
-                    shake(draggingHuman.transform);
-                    if (isRoomAcceptable)
+                    if (!draggingHuman.isDead)
                     {
+                        shake(draggingHuman.transform);
+                        if (isRoomAcceptable)
+                        {
 
-                        draggingHuman.currentArea.removeHuman(draggingHuman);
-                        inRoom.GetComponent<AreaBase>().addHuman(draggingHuman);
-                    }
-                    else
-                    {
+                            draggingHuman.currentArea.removeHuman(draggingHuman);
+                            inRoom.GetComponent<AreaBase>().addHuman(draggingHuman);
+                        }
+                        else
+                        {
+                            if (inRoom)
+                            {
+                                inRoom.warnHumanCount();
 
-                        draggingHuman.transform.position = dragOriginalPosition;
+                            }
+                            draggingHuman.transform.position = dragOriginalPosition;
+                            draggingHuman.updateAnimation();
+                        }
                     }
+
+                    SFXManager.Instance.playreleaseClip();
+                    unHover(draggingHuman);
                     draggingHuman = null;
                 }
 

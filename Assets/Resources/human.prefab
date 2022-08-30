@@ -598,10 +598,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 679ee520c7573ce41b331815053c90a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxEnergy: 20
-  energyReduceTime: 1
-  energyReduceAmount: 0.3
-  energyIncreaseAmount: 1
   energy: 0
   spriteRender: {fileID: 4203940679900657235}
   hasPincer: 0
@@ -609,6 +605,12 @@ MonoBehaviour:
   hasShortLegs: 0
   noHelmet: 0
   idleAnimationName: idle
+  happyAnimationName: makeHappy
+  foodAnimationName: cook
+  catchAnimationName: getGrabbed
+  spawnAnimationName: dance
+  dieAnimationName: die
+  fallAnimationName: freefall
   workAnimationName: run
   energyFillImage: {fileID: 7021339496552151761}
   currentArea: {fileID: 0}

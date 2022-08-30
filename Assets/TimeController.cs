@@ -43,5 +43,10 @@ public class TimeController : Singleton<TimeController>
         ResourceManager.Instance.changeAmount("food", -decreaseFoodNextRound);
         round++;
 
+        if (round >= 30)
+        {
+            EventManager.Instance.createEventTrigger("happyEnd");
+        }
+
     }
 }

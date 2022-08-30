@@ -20,13 +20,18 @@ public class TutorialManager : Singleton<TutorialManager>
 
 
         {"afterFood_0","Nice! I can check on the top left for the current status of my happiness and food left. Don't let it go too low." },
-        {"afterFood_00","Now I think they just need to breed more tiny human next. It is kind of silly that they need two to breed child." },
+        {"afterFood_00","Now I think they just need to breed more tiny humans next. It is kind of silly that they need two to breed a child." },
         {"afterFood_000","Try drag two to the upper place to let them breed more." },
 
-        {"afterBreed_0","That's everything I can do to those tiny guys. Watch out when they spawn too many, I can only have certain number of them on my planet now, so those who are exceed the number will be killed." },
-        {"afterBreed_00","If they make me happy enough, I can upgrade to have more of them. But if not, I can also drag some to the bottom to kill them manually." },
-         {"afterBreed_000","Every day they need to eat and My interest to them might get down. Keep track of that on the top left." },
-        {"afterBreed_0000","But no need to worry too much. Anyway they are just... pets? I have them for fun, not for making myself busy." },
+        {"afterBreed_0","Watch out when they spawn too many, I can only have a certain number of them on my planet now, so those who exceed the number will be killed." },
+        {"afterBreed_00","If they make me happy enough, I can upgrade to have more of them. But if not, I can also drag some to the bottom to kill them manually. " },
+        {"afterBreed_000","Drag to the down area when I have too many humans. It would also make me happy and give them some food." },
+
+
+
+         {"afterDiscard_0","Every day they need to eat and My interest in them might get down. Keep track of that on the top left." },
+        {"afterDiscard_00","Also remember to drag them back to storage to rest when they get tired." },
+        {"afterDiscard_000","But no need to worry too much. Anyway, they are just... pets? I have them for fun, not for making myself busy." },
 
 
     };
@@ -51,9 +56,9 @@ public class TutorialManager : Singleton<TutorialManager>
         }
 
 
+        isTutorialFinished[name] = true;
         List<EventButtonInfo> eventButtons = new List<EventButtonInfo>();
         eventButtons.Add(new EventButtonInfo("OK", name, ()=> {
-            isTutorialFinished[name] = true;
 
             //if (tutorialString.ContainsKey(name + "0"))
             //{

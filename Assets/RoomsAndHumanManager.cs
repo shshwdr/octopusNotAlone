@@ -179,7 +179,17 @@ public class RoomsAndHumanManager : Singleton<RoomsAndHumanManager>
 
         }
     }
-
+    public bool hasMutation(int i)
+    {
+        foreach (var human in humans)
+        {
+            if (human.types().Count>=i)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     public bool hasType(string str)
     {
         foreach(var human in humans)
@@ -197,7 +207,21 @@ public class RoomsAndHumanManager : Singleton<RoomsAndHumanManager>
 
         foreach (var human in humans)
         {
-            if (type == "any" || (!isOpposite&&human.isType(type)) || (isOpposite && !human.isType(type)))
+
+            if (type.StartsWith("mutation") )
+            {
+                if(human.types().Count >= amount)
+                {
+
+                    human.kill();
+                    amount -= 1;
+                    if (amount == 0)
+                    {
+                        return;
+                    }
+                }
+            }
+            else if (type == "any" || (!isOpposite&&human.isType(type)) || (isOpposite && !human.isType(type)))
             {
                 human.kill();
                 amount -= 1;
